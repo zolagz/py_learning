@@ -60,7 +60,7 @@ def tx_voice(text,voice_id):
             'Volume': 5,
             'Speed': 1,  # 控制语速  [-2.-1,0,1,2]
             'ProjectId': 0,
-            'VoiceType': voice_id,  # 设置发音角色
+            'VoiceType': int(voice_id),  # 设置发音角色
             'PrimaryLanguage': 1,
             'SampleRate': 16000,
             'Codec': 'mp3',
@@ -82,7 +82,29 @@ def tx_voice(text,voice_id):
 
 
 
-list1 = [0,1,2,3,4,5,6,7,1001,1002,1003]
+# list1 = [0,1,2,3,4,5,6,7,1001,1002,1003]
 
-for i in list1:
-    tx_voice(user_text,i)
+list2 = [
+'101004',
+'101005',
+'101006',
+'101007',
+'101008',
+'101009',
+'101010',
+'101011',
+'101012',
+'101013',
+'101014',
+'101015',
+'101016',
+'101017',
+'101018',
+'101019'
+]
+# for i in list2:
+#     tx_voice(user_text,i)
+
+# 102003
+
+tx_voice(user_text,102003)
