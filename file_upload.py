@@ -10,6 +10,12 @@ import base64
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'data/upload_dir'
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','mp3','py'}
+
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 def make_dir(path):
     if not os.path.exists(path):
@@ -20,20 +26,22 @@ def make_dir(path):
 @app.route('/upload',methods=['POST'])
 def upload_file():
     file = request.files['file']
-    if file.endswith('.mp4') or file.endswith('.avi'):
+    print(file)
+    print(str(file))
+    # return "oooook"
+    if file and allowed_file(file.filename):
         ext_name = file.filename.split('.')[1]
         f_name = str(int(round(time.time() * 1000)))+"." + ext_name
         file.save(os.path.join(make_dir(app.config['UPLOAD_FOLDER']),f_name))
         return {'fileName':f_name}
-    return {'msg:' '仅支持mp4和avi格式视频'}
-
+    return {'msg:' '不支持该文件类型上传！'}
 
 @app.route('/hi')
 def hello():
     return "Hello world"
 
 # 提取单张图片文本
-@app.route('imgText',methods=['POST'])
+@app.route('/imgText',methods=['POST'])
 def img_text():
     pass
 
